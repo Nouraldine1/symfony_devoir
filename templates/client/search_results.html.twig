@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultats de Recherche - Gestion Boutique{% endblock %}
+
+{% block content %}
+<section class="flex-grow bg-white p-6">
+    <h2 class="text-2xl font-bold mb-4">Résultats de Recherche</h2>
+    <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+            <tr>
+                <th class="border px-4 py-2">Nom</th>
+                <th class="border px-4 py-2">Prénom</th>
+                <th class="border px-4 py-2">Téléphone</th>
+                <th class="border px-4 py-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if results is empty %}
+                <tr>
+                    <td colspan="4" class="border px-4 py-2 text-center">Aucun client trouvé</td>
+                </tr>
+            {% else %}
+                {% for client in results %}
+                    <tr>
+                        <td class="border px-4 py-2">{{ client.nom }}</td>
+                        <td class="border px-4 py-2">{{ client.prenom }}</td>
+                        <td class="border px-4 py-2">{{ client.telephone }}</td>
+                        <td class="border px-4 py-2">
+                            <a href="{{ path('edit_client', { id: client.id }) }}" class="text-blue-600 hover:underline">Modifier</a>
+                            <a href="{{ path('delete_client', { id: client.id }) }}" class="text-red-600 hover:underline">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
